@@ -11,10 +11,11 @@
 
 <body>
 
+    <button onclick="PromptNbBoxes()">Start a new session</button>
     <div id="board"></div>
 
     <script>
-//---------------------------------------------------------------------
+        //---------------------------------------------------------------------
         //on créé une fn pour randomiser les enfants du parent mis en argument.
         function shuffleChildren(parent) {
             let children = parent.children //on créé une var children qui est = a l'enfant du parent (parent.children)
@@ -27,66 +28,80 @@
                 parent.appendChild(temp) // place l'élément k pointé temporairement à la fin du contenu de board
             }
         }
-//-----------------------------------------------------------------
+        //-----------------------------------------------------------------
         // on créé une fn pour réaction visuelle lors du click selon le "type", string correspondant au style class CSS souhaité qui s'appliquera sur la "clickedBox", HTMLelement étant la boite sur laquelle l'effet est appliqué.
-        function showReaction(type, clickedBox){
+        function showReaction(type, clickedBox) {
             clickedBox.classList.add(type) // on applique la classe CSS "type" a la clickedBox.
-            if(type !=="success"){          // on vérifie si la classe CSS n'est pas égale à "success", auquel cas on execute la fn "setTimeout" permettant de retarder l'exécution du "remove" de la class CSS ajoutée précedemment.
-                setTimeout(function(){
+            if (type !== "success") {          // on vérifie si la classe CSS n'est pas égale à "success", auquel cas on execute la fn "setTimeout" permettant de retarder l'exécution du "remove" de la class CSS ajoutée précedemment.
+                setTimeout(function () {
                     clickedBox.classList.remove(type)
                 }, 800)
             }
-            
+
         }
-//------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------
+        
         const box = document.createElement("div")
         box.classList.add("box")
-
+        
         const board = document.querySelector("#board")
+        
+        var x;
+        
+        function PromptNbBoxes() {
+            let promptNB = prompt("Please enter the number of boxes you want", 0);
+            if (promptNB !== null) {
 
-        let nb = 1
+                x = parseInt(promptNB)
+                
+                
+                let nb = 1
+                
+                
+                for (let i = 1; i <= x ; i++) {
+                    let newbox = box.cloneNode()
+                    newbox.innerText = i
+                    board.appendChild(newbox)
+                    shuffleChildren(board)
 
-        for (let i = 1; i <= 10; i++) {
-            let newbox = box.cloneNode()
-            newbox.innerText = i
-            board.appendChild(newbox)
+                    newbox.addEventListener("click", function () { // on instaure un eventListener au click qui va effectuer différentes instruction (1, 2 et 3)
 
-            newbox.addEventListener("click", function () { // on instaure un eventListener au click qui va effectuer différentes instruction (1, 2 et 3)
+                        console.log("Boite n°" + i + ", click!")
 
-                console.log("Boite n°" + i + ", click!")
+                        if (i == nb) {                      // Instruction 1 : Si i = nb, la bonne boite a été cliqué et le style class "box-clicked" est appliqué
+                            newbox.classList.add("box-clicked")
 
-                if (i == nb) {                      // Instruction 1 : Si i = nb, la bonne boite a été cliqué et le style class "box-clicked" est appliqué
-                    newbox.classList.add("box-clicked")
+                            if (nb == board.children.length) { // Si nb est égal au nombre de boite du jeu, c'est que le dernier clic était sur la denrière boite -> VICTOIRE du joueur ! (il ne faut pas incrémenter nb avant)
+                                newbox.classList.add("box-clicked-last")
+                                board.querySelectorAll(".box").forEach(function (box) {
+                                    showReaction("success", box)
+                                })
+                            }
+                            nb++
+                        }
 
-                    if (nb == board.children.length) { // Si nb est égal au nombre de boite du jeu, c'est que le dernier clic était sur la denrière boite -> VICTOIRE du joueur ! (il ne faut pas incrémenter nb avant)
-                        newbox.classList.add("box-clicked-last")
-                        board.querySelectorAll(".box").forEach(function(box){
-                        showReaction("success", box) 
+                        else if (i > nb) {                  // Instruction 2 : Si i est supérieur a nb, la mauvaise boite a été cliqué. Une alerte apparait.
+                            showReaction("error", newbox)
+                            nb = 1
+                            board.querySelectorAll(".box-clicked").forEach(function (validBox) { //et les boites grisées par le style class"box-clicked" redeviennent class"box" grace au remove de "box-clicked"
+                                validBox.classList.remove("box-clicked")
+                                shuffleChildren(board)
+                            })
+                        }
+
+                        else {                             // Instruction 3 : Dernière option, le joueur a cliqué sur une case déjà grsiée. On l'informe par l'alert, mais le jeu ne redémarre pas.
+                            showReaction("notice", newbox)
+                        }
                     })
                 }
-                    nb++
-                }
-
-                else if (i > nb) {                  // Instruction 2 : Si i est supérieur a nb, la mauvaise boite a été cliqué. Une alerte apparait.
-                    showReaction ("error", newbox)
-                    nb = 1
-                    board.querySelectorAll(".box-clicked").forEach(function (validBox) { //et les boites grisées par le style class"box-clicked" redeviennent class"box" grace au remove de "box-clicked"
-                        validBox.classList.remove("box-clicked")
-                    })
-                }
-
-                else {                             // Instruction 3 : Dernière option, le joueur a cliqué sur une case déjà grsiée. On l'informe par l'alert, mais le jeu ne redémarre pas.
-                    showReaction("notice", newbox)
-                }
 
 
 
-            })
+            }
         }
 
 
 
-        shuffleChildren(board)
 
     </script>
 </body>
