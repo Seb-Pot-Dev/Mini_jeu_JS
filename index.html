@@ -12,10 +12,13 @@
     <div id="board"></div>
 
     <script>
-        function shuffleChildren(parent){
-            let children = parent.children
+        //on créé une fn pour randomiser les enfants du parent mis en argument.
+        function shuffleChildren(parent)
+        {
+            let children = parent.children //on créé une var children qui est = a l'enfant du parent (parent.children)
             let i = children.length, k, temp
-            while(--i > 0){ //on boucle tant que 1 oté de i est tjr positif.
+            while(--i > 0) //on boucle tant que 1 oté de i est tjr positif.
+            { 
                 k = Math.floor(Math.random() * (i+1)) //k stocke un nombre aléatoire basé sur i
                 temp = children[k] // temp pointe temporairement l'élément à la position k dans board
                 children[k] = children[i] //remplacement l'élément à la position k par l'élément à la position i
@@ -28,10 +31,17 @@
 
         const board = document.querySelector("#board")
 
-        for (let i = 1; i <= 10; i++){
+        for (let i = 1; i <= 10; i++)
+        {
             let newbox = box.cloneNode()
             newbox.innerText = i
             board.appendChild(newbox)
+
+            newbox.addEventListener("click", function()
+            {
+                console.log("Boite n°"+i+", click!")
+                newbox.classList.add("box-clicked")
+            })
         }
 
         shuffleChildren(board)
