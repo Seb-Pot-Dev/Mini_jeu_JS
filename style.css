@@ -11,18 +11,36 @@
     text-align: center;
     line-height: 75px;
     margin: 5px;
-    animation: appear 1s;
+    animation: appear 1.3s;
     border-radius: 6px;
+    cursor: pointer;
+    transition : background-color 0.8s, color 0.8s, transform 0.2s;
 }
 
 .box-clicked{
-background-color: #ccc;
-color: #aaa;
+    background-color: #ccc;
+    color: #aaa;
+    transform: scale(0.9);
+    cursor:default;
+}
+.box.success{
+    background-color: rgb(149, 250, 146);
+    color: rgb(33, 133, 2);
+    transform: scale(0.9);
+}
+.box.error{
+    background-color: lightcoral;
+    color: darkred;
+}
+.box.notice{
+    background-color: rgba(255, 0, 0, 0.452);
+    color: rgb(112, 0, 0);
+    cursor: not-allowed;
 }
 
 @keyframes appear{
     from{
-        transform: scale(0) rotate(180deg)
+        transform: scale(0) rotate(720deg)
     }
     to{
         transform: scale(1) rotate(0deg);
