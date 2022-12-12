@@ -51,8 +51,10 @@
 @keyframes disappear{
     from{
         opacity: 100%;
+        transform: scale(1)
     }
     to{
         opacity: 20%;
+        transform: scale(2);
     }
 }
