@@ -1,60 +1,59 @@
-#board{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content: center;
+#board {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
-.box{
-    width: 75px;
-    height: 75px;
-    border: 1px solid black;
-    background-color: rgb(236, 168, 41);
-    font-size: 3em;
-    text-align: center;
-    line-height: 75px;
-    margin: 5px;
-    animation: appear 1.3s;
-    border-radius: 50%;
-    cursor: pointer;
-    transition : background-color 0.8s, color 0.8s, transform 0.2s;
-}
-
-.box-clicked{
-    background-color: #ccc;
-    color: #aaa;
-    transform: scale(0.8);
-    cursor:default;
-}
-.box.success{
-    background-color: rgb(149, 250, 146);
-    color: rgb(33, 133, 2);
-    animation: disappear 1.5s
-    
-}
-.box.error{
-    background-color: lightcoral;
-    color: darkred;
-}
-.box.notice{
-    background-color: rgb(91, 141, 156);
-    color: rgb(92, 85, 185);
-    cursor: not-allowed;
+.box {
+  width: 75px;
+  height: 75px;
+  border: 1px solid black;
+  background-color: rgb(236, 168, 41);
+  font-size: 3em;
+  text-align: center;
+  line-height: 75px;
+  margin: 5px;
+  animation: appear 1.3s;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.8s, color 0.8s, transform 0.2s;
 }
 
-@keyframes appear{
-    from{
-        transform: scale(0) rotate(720deg)
-    }
-    to{
-        transform: scale(1) rotate(0deg);
-    }
+.box-clicked {
+  background-color: #ccc;
+  color: #aaa;
+  transform: scale(0.8);
+  cursor: default;
 }
-@keyframes disappear{
-    from{
-        opacity: 100%;
-        transform: scale(1)
-    }
-    to{
-        opacity: 20%;
-        transform: scale(2);
-    }
+.box.success {
+  background-color: rgb(149, 250, 146);
+  color: rgb(33, 133, 2);
+  animation: disappear 1.5s;
+}
+.box.error {
+  background-color: lightcoral;
+  color: darkred;
+}
+.box.notice {
+  background-color: rgb(91, 141, 156);
+  color: rgb(92, 85, 185);
+  cursor: not-allowed;
+}
+
+@keyframes appear {
+  from {
+    transform: scale(0) rotate(720deg);
+  }
+  to {
+    transform: scale(1) rotate(0deg);
+  }
+}
+@keyframes disappear {
+  from {
+    opacity: 100%;
+    transform: scale(1);
+  }
+  to {
+    opacity: 20%;
+    transform: scale(2);
+  }
 }
